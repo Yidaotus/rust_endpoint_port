@@ -1,8 +1,10 @@
 use actix_web::{error::ResponseError, http::StatusCode, HttpResponse};
+use serde_repr::{Serialize_repr};
 use serde::Serialize;
 use thiserror::Error;
 
-#[derive(Serialize)]
+#[derive(Serialize_repr)]
+#[repr(u8)]
 enum ApiStatus {
     OK = 1,
     UNAUTHANTICATED = 2,
@@ -45,7 +47,7 @@ impl ResponseError for ApiError {
             Self::InvalidUser => ApiStatus::ERROR,
         };
         let api_message = self.to_string();
-        let api_response = ApiResponse::<String> {
+        let api_response = ApiResponse::<()> {
             status: api_status,
             message: api_message,
             payload: None,
