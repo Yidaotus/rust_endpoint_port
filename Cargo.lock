@@ -1723,6 +1723,8 @@ name = "webserver_port"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
