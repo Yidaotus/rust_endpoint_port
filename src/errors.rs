@@ -32,7 +32,7 @@ pub enum ApiError {
 
 impl ResponseError for ApiError {
     fn status_code(&self) -> StatusCode {
-        match *self {
+        match self {
             Self::ValidationError(_) => StatusCode::BAD_REQUEST,
             Self::InvalidToken => StatusCode::UNAUTHORIZED,
             Self::InvalidUser => StatusCode::BAD_REQUEST,
@@ -41,7 +41,7 @@ impl ResponseError for ApiError {
 
     fn error_response(&self) -> HttpResponse {
         let status_code = self.status_code();
-        let api_status = match *self {
+        let api_status = match self {
             Self::ValidationError(_) => ApiStatus::INVALIDARGUMENT,
             Self::InvalidToken => ApiStatus::UNAUTHORIZED,
             Self::InvalidUser => ApiStatus::ERROR,
